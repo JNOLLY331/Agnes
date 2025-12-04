@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnes Wavinya Ndunda | Aspiring HR Professional</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Dark mode primary colors
+                        'primary-dark': '#0F172A',   // Slate 900
+                        'secondary-dark': '#1E293B', // Slate 800
+                        // Light primary color
+                        'primary-indigo': '#4338CA', // Indigo 700 - Deep primary
+                        // Accent color
+                        'accent-emerald': '#34D399', // Emerald 400 - Bright accent
+                        // Background color
+                        'bg-light': '#F1F5F9',       // Slate 100
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'hero': '0 25px 50px -12px rgba(67, 56, 202, 0.4)', // Stronger hero shadow
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Custom scroll behavior for smooth scrolling on internal links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Skill Card Hover Effect */
+        .skill-card-v2 {
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .skill-card-v2:hover {
+            box-shadow: 0 10px 30px rgba(52, 211, 153, 0.5); /* Emerald glow */
+            transform: translateY(-10px) scale(1.02);
+            border-bottom: 4px solid #34D399; /* Maintain border visibility */
+        }
+        /* Asymmetrical Section Divider (Profile Section Start) */
+        .hr-vision-bg {
+            background-color: #F1F5F9; /* bg-light */
+            /* Ensure the clip path looks sharp on all screens */
+            clip-path: polygon(0 0, 100% 8%, 100% 100%, 0% 100%);
+            padding-top: 5rem; /* Adjust padding to match clip */
+        }
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        #mobile-menu.open {
+            max-height: 500px; /* Large enough to show all content */
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-bg-light text-primary-dark antialiased">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg transition duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-2xl font-extrabold text-primary-indigo hover:text-primary-dark transition duration-150">Agnes <span class="text-accent-emerald">Wavinya</span></a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#profile" class="text-gray-600 hover:text-primary-indigo px-3 py-2 text-sm font-semibold transition duration-150 tracking-wider">PROFILE</a>
+                        <a href="#skills" class="text-gray-600 hover:text-primary-indigo px-3 py-2 text-sm font-semibold transition duration-150 tracking-wider">SKILLS</a>
+                        <a href="#achievements" class="text-gray-600 hover:text-primary-indigo px-3 py-2 text-sm font-semibold transition duration-150 tracking-wider">IMPACT</a>
+                        <a href="#contact" class="bg-accent-emerald text-primary-dark px-5 py-2 rounded-full text-sm font-bold shadow-md hover:bg-emerald-500 transition duration-150 transform hover:scale-105">CONTACT</a>
+                    </div>
+                </div>
+                <!-- Mobile Menu Button (Hamburger/Close Icon) -->
+                <button class="md:hidden p-2 text-gray-700 hover:text-primary-indigo rounded-md focus:outline-none" id="mobile-menu-button" aria-label="Toggle mobile menu">
+                    <i class="fas fa-bars text-xl block" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden/Collapsed by default) -->
+        <div class="md:hidden bg-white shadow-inner" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center border-t border-gray-100">
+                <a href="#profile" class="block text-gray-600 hover:text-primary-indigo px-3 py-2 rounded-md text-base font-medium">Profile</a>
+                <a href="#skills" class="block text-gray-600 hover:text-primary-indigo px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#achievements" class="block text-gray-600 hover:text-primary-indigo px-3 py-2 rounded-md text-base font-medium">Impact</a>
+                <a href="#contact" class="block bg-primary-indigo text-white px-3 py-2 rounded-full text-base font-medium mt-2 hover:bg-primary-dark transition">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Hero Section - High Contrast & Impact -->
+    <header id="hero" class="pt-24 pb-24 md:pt-48 md:pb-40 bg-primary-dark text-white shadow-hero relative overflow-hidden">
+        
+        <!-- Subtle background pattern for texture -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff22_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="md:flex md:items-center md:justify-between space-y-12 md:space-y-0">
+                
+                <!-- Text Content -->
+                <div class="md:w-1/2">
+                    <p class="text-lg font-bold text-accent-emerald mb-4 tracking-widest uppercase">High School Graduate | Future HR Leader</p>
+                    <h1 class="text-6xl md:text-8xl font-black leading-tight">
+                        I am <span class="text-accent-emerald block md:inline">Agnes W.</span> Ndunda.
+                    </h1>
+                    <p class="mt-8 text-xl text-gray-300 max-w-lg">
+                        Ambition meets execution. A brilliant, self-driven leader ready to leverage rigorous academic discipline and leadership experience to excel in Human Resource Management.
+                    </p>
+                    <a href="#profile" class="mt-10 inline-block bg-primary-indigo text-white font-black py-4 px-10 rounded-lg shadow-2xl shadow-indigo-500/30 hover:bg-primary-dark border-2 border-primary-indigo hover:border-accent-emerald transition duration-300 transform hover:-translate-y-0.5">
+                        Explore My Drive <i class="fas fa-arrow-down ml-3"></i>
+                    </a>
+                </div>
+
+                <!-- Image Placeholder - Modern Frame -->
+                <div class="md:w-1/2 flex justify-center md:justify-end">
+                    <div class="w-72 h-72 md:w-96 md:h-96 relative rounded-2xl overflow-hidden bg-secondary-dark p-2 shadow-2xl shadow-accent-emerald/50">
+                        <img src="https://placehold.co/800x800/222222/FFFFFF?text=Agnes" 
+                             alt="Agnes Wavinya Ndunda" 
+                             class="w-full h-full object-cover rounded-xl opacity-90 transition duration-500 hover:opacity-100"
+                             onerror="this.onerror=null; this.src='https://placehold.co/800x800/222222/FFFFFF?text=Photo+Pending';">
+                        <span class="absolute top-4 left-4 text-xs font-bold bg-accent-emerald/90 text-primary-dark px-3 py-1 rounded-full uppercase">Visionary</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Section - Asymmetrical background divider -->
+    <section id="profile" class="pb-32 bg-white hr-vision-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold text-primary-indigo uppercase tracking-widest">FOUNDATION</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary-dark mt-2">Vision & Core Traits</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-16 items-start">
+                <!-- HR Vision -->
+                <div class="order-2 md:order-1">
+                    <h3 class="text-3xl font-black text-primary-indigo mb-6 pb-2 border-b-2 border-accent-emerald flex items-center">
+                        <i class="fas fa-handshake mr-3 text-accent-emerald text-2xl"></i> My HR Mandate
+                    </h3>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        I am pursuing Human Resource Management because I see people, not just assets. My ambition is to shape organizations by fostering **equitable, high-trust environments** where talent thrives. My experience mediating student conflicts and leading projects has equipped me with the foundational **empathy** and **strategic foresight** crucial for effective talent acquisition and management.
+                    </p>
+                    
+                    <div class="mt-8 p-6 bg-primary-indigo/10 rounded-xl border border-primary-indigo/20">
+                        <p class="font-bold text-primary-indigo">High School Discipline:</p>
+                        <p class="text-gray-700 text-sm mt-1">
+                            My academic record reflects my dedication to rigorous processes—a key mindset for compliance, policy implementation, and performance management in HR.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Core Traits Grid -->
+                <div class="grid grid-cols-2 gap-6 pt-4 order-1 md:order-2">
+                    <!-- Ambitious -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-emerald hover:shadow-xl transition duration-300">
+                        <i class="fas fa-rocket text-3xl text-accent-emerald mb-2"></i>
+                        <p class="font-black text-xl text-primary-dark">Ambitious</p>
+                        <p class="text-sm text-gray-600 mt-1">Relentlessly aiming for the top in every endeavor, from academics to career goals.</p>
+                    </div>
+                    <!-- Brilliant -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-primary-indigo hover:shadow-xl transition duration-300">
+                        <i class="fas fa-brain text-3xl text-primary-indigo mb-2"></i>
+                        <p class="font-black text-xl text-primary-dark">Brilliant & Analytical</p>
+                        <p class="text-sm text-gray-600 mt-1">Exceptional ability to synthesize information and solve complex organizational problems.</p>
+                    </div>
+                    <!-- Self-Driven -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-primary-indigo hover:shadow-xl transition duration-300">
+                        <i class="fas fa-bolt text-3xl text-primary-indigo mb-2"></i>
+                        <p class="font-black text-xl text-primary-dark">Self-Driven</p>
+                        <p class="text-sm text-gray-600 mt-1">Proactive and autonomous; identifies opportunities and executes plans without prompting.</p>
+                    </div>
+                    <!-- Hardworking -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-accent-emerald hover:shadow-xl transition duration-300">
+                        <i class="fas fa-medal text-3xl text-accent-emerald mb-2"></i>
+                        <p class="font-black text-xl text-primary-dark">Hardworking</p>
+                        <p class="text-sm text-gray-600 mt-1">Deep commitment to discipline and seeing projects through to outstanding completion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section - Enhanced Cards with Stronger Hover -->
+    <section id="skills" class="py-20 bg-bg-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold text-primary-indigo uppercase tracking-widest">COMPETENCIES</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary-dark mt-2">Transferable Skills</h2>
+                <p class="mt-4 text-lg text-gray-500">
+                    Strengths forged in the highly competitive high school environment.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Skill Card 1: Communication -->
+                <div class="skill-card-v2 p-8 bg-white rounded-2xl shadow-xl border-b-4 border-primary-indigo cursor-pointer">
+                    <i class="fas fa-comments text-4xl text-primary-indigo mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Effective Communication</h4>
+                    <p class="text-gray-600 text-sm">Ability to articulate complex ideas clearly, a skill honed through debate and public speaking.</p>
+                </div>
+                <!-- Skill Card 2: Leadership -->
+                <div class="skill-card-v2 p-8 bg-white rounded-2xl shadow-xl border-b-4 border-accent-emerald cursor-pointer">
+                    <i class="fas fa-users-gear text-4xl text-accent-emerald mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Team Leadership & Conflict Resolution</h4>
+                    <p class="text-gray-600 text-sm">Proven capacity to guide committees and mediate differences, directly applicable to workplace HR.</p>
+                </div>
+                <!-- Skill Card 3: Organization -->
+                <div class="skill-card-v2 p-8 bg-white rounded-2xl shadow-xl border-b-4 border-primary-indigo cursor-pointer">
+                    <i class="fas fa-clipboard-check text-4xl text-primary-indigo mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Process-Oriented Organization</h4>
+                    <p class="text-gray-600 text-sm">Mastery in managing deadlines and complex schedules, vital for HR compliance and payroll.</p>
+                </div>
+                <!-- Skill Card 4: Data Analysis -->
+                <div class="skill-card-v2 p-8 bg-white rounded-2xl shadow-xl border-b-4 border-accent-emerald cursor-pointer">
+                    <i class="fas fa-chart-bar text-4xl text-accent-emerald mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Quantitative Analysis</h4>
+                    <p class="text-gray-600 text-sm">Strong foundation in data interpretation for informed decision-making (e.g., compensation trends).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section - Clean and focused -->
+    <section id="achievements" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold text-primary-indigo uppercase tracking-widest">RESULTS</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary-dark mt-2">Key Achievements</h2>
+                <p class="mt-4 text-lg text-gray-500">
+                    Concrete proof of discipline, leadership, and drive.
+                </p>
+            </div>
+
+            <div class="space-y-10 max-w-4xl mx-auto">
+                <!-- Achievement 1 -->
+                <div class="relative p-8 rounded-xl bg-bg-light shadow-lg hover:shadow-xl transition duration-300 border-l-8 border-primary-indigo">
+                    <div class="absolute -top-4 -left-4 p-3 bg-primary-indigo text-white rounded-full text-xl shadow-xl">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="text-2xl font-black text-gray-900 ml-10">Academic Excellence Award (Top 5%)</h4>
+                    <p class="text-sm font-semibold text-gray-500 mt-1 ml-10">St. Cecilia High School - 2024</p>
+                    <p class="mt-4 text-lg text-gray-700 border-t border-gray-200 pt-4">Consistently achieved top-tier marks across demanding subjects, highlighting my cognitive agility and relentless focus on mastery.</p>
+                </div>
+                
+                <!-- Achievement 2 -->
+                <div class="relative p-8 rounded-xl bg-bg-light shadow-lg hover:shadow-xl transition duration-300 border-l-8 border-accent-emerald">
+                    <div class="absolute -top-4 -left-4 p-3 bg-accent-emerald text-primary-dark rounded-full text-xl shadow-xl">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4 class="text-2xl font-black text-gray-900 ml-10">Student Council Secretary</h4>
+                    <p class="text-sm font-semibold text-gray-500 mt-1 ml-10">Leadership Role - 2023/2024</p>
+                    <p class="mt-4 text-lg text-gray-700 border-t border-gray-200 pt-4">Successfully managed the school's internal governance structure, leading to improved communication efficiency and the successful execution of three major annual events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA - High Contrast -->
+    <section id="contact-cta" class="py-24 bg-primary-dark text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-5xl md:text-6xl font-black mb-4 tracking-tight">Let's Discuss My Future</h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                I am ready to commit my drive and brilliance to a Bachelor of Human Resource Management program.
+            </p>
+            <a href="#contact" class="inline-flex items-center bg-accent-emerald text-primary-dark font-black py-4 px-16 rounded-full shadow-2xl shadow-emerald-500/50 hover:bg-emerald-300 transition duration-300 transform hover:scale-105" aria-label="Initiate conversation">
+                Initiate Conversation <i class="fas fa-arrow-circle-right ml-3"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Form - Modernized -->
+    <section id="contact" class="py-20 bg-bg-light">
+        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-extrabold text-primary-dark text-center mb-12">Get In Touch</h2>
+            <div class="bg-white p-10 rounded-2xl shadow-2xl border-t-8 border-primary-indigo">
+                <!-- Simplified contact form structure -->
+                <form action="#" method="POST" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-bold text-gray-700">Your Name</label>
+                        <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-inner focus:ring-accent-emerald focus:border-accent-emerald transition">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-bold text-gray-700">Your Email</label>
+                        <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-inner focus:ring-accent-emerald focus:border-accent-emerald transition">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-bold text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-inner focus:ring-accent-emerald focus:border-accent-emerald transition"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-lg font-black text-white bg-primary-indigo hover:bg-primary-dark transition duration-300 transform hover:scale-[1.01]">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center mt-10 space-y-3">
+                <p class="text-lg font-semibold text-primary-dark">Direct Contact:</p>
+                <p class="text-gray-600">Email: <a href="mailto:agnes.wavinya@example.com" class="text-primary-indigo hover:underline font-medium">agnes.wavinya@example.com</a></p>
+                <p class="text-gray-600">LinkedIn: <a href="#" class="text-primary-indigo hover:underline font-medium">linkedin.com/in/agneswavinya</a></p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-secondary-dark text-white py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-400">
+                &copy; 2024 Agnes Wavinya Ndunda. Built with Precision and Drive.
+            </p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="text-gray-400 hover:text-accent-emerald transition duration-200 text-xl" aria-label="LinkedIn profile"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:agnes.wavinya@example.com" class="text-gray-400 hover:text-accent-emerald transition duration-200 text-xl" aria-label="Email Agnes"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu Toggle and Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const navLinks = mobileMenu.querySelectorAll('a');
+            
+            // Toggle menu visibility and change icon
+            if (menuButton) {
+                menuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('open');
+                    if (mobileMenu.classList.contains('open')) {
+                        menuIcon.classList.replace('fa-bars', 'fa-times'); // Change to X icon
+                        menuButton.setAttribute('aria-expanded', 'true');
+                    } else {
+                        menuIcon.classList.replace('fa-times', 'fa-bars'); // Change back to Hamburger
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Slight delay to allow smooth scrolling before closing
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('open');
+                        menuIcon.classList.replace('fa-times', 'fa-bars');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
