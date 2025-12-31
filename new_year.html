@@ -125,14 +125,45 @@ body {
   margin-bottom: 20px;
 }
 
+/* Update your existing CSS with these specific changes */
+
 .message {
   max-width: 600px;
-  margin: auto;
-  font-size: 1rem;
-  line-height: 1.8;
-  opacity: 0.85;
+  margin: 30px auto auto auto; /* Added top margin for divider */
+  font-family: 'Playfair Display', serif; /* Matching the year for elegance */
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.9;
+  color: #f8f8f8;
+  opacity: 0.95;
+  position: relative;
+  padding-top: 25px;
+  border-top: 1px solid rgba(212, 175, 55, 0.3); /* Subtle gold divider */
 }
 
+/* Adding decorative "quotes" via CSS */
+.message::before {
+  content: '“';
+  font-size: 4rem;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold);
+  opacity: 0.3;
+  font-family: 'Playfair Display', serif;
+}
+
+.message::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin: 20px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--gold);
+}
 /* CTA */
 .button-wrap {
   margin-top: 40px;
