@@ -1,0 +1,273 @@
+
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japheth Anold Dindi - Portfolio CV</title>
+    <style>
+        :root {
+            --primary: #802a30;
+            --secondary: #555;
+            --bg-light: #f9f9f9;
+            --border: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            max-width: 950px;
+            margin: 20px auto;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .cv-container {
+            background: white;
+            padding: 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--primary);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .name-title h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+
+        .name-title p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin: 5px 0 0;
+            font-weight: 500;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            object-fit: cover;
+        }
+
+        /* Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--primary);
+            margin: 25px 0 15px;
+            padding-bottom: 5px;
+        }
+
+        /* Contact Info */
+        .contact-item {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: var(--primary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* Lists & Entries */
+        .entry { margin-bottom: 25px; }
+        .entry h3 { margin: 0; font-size: 1.1rem; color: #222; }
+        .entry .sub-text { color: var(--secondary); font-weight: 600; font-size: 0.95rem; }
+        .entry .date { color: var(--primary); font-size: 0.85rem; display: block; margin-bottom: 8px; }
+
+        ul { padding-left: 18px; margin: 8px 0; }
+        li { margin-bottom: 5px; font-size: 0.9rem; }
+
+        /* Skills/Qualities Pills */
+        .pill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+
+        .pill:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .signature-area {
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .cv-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cv-container">
+    <header class="header">
+        <div class="name-title">
+            <h1>Japheth Anold Dindi</h1>
+            <p>Software Developer</p>
+        </div>
+        <img src="potrait.jpeg" alt="Japheth Anold" class="profile-img">
+    </header>
+
+    <div class="main-grid">
+        <aside>
+            <section>
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-item"><strong>Email</strong>japhethanold2@gmail.com</div>
+                <div class="contact-item"><strong>Phone</strong>+254 704 345035</div>
+                <div class="contact-item"><strong>Address</strong>Eldoret, Kenya</div>
+                <div class="contact-item"><strong>Portfolio</strong><a href="https://japhethanold.onrender.com" style="color: inherit; text-decoration: none;">japhethanold.onrender.com</a></div>
+                <div class="contact-item"><strong>Phone</strong>+254 704 345035</div>
+                <div class="contact-item"><strong>Github</strong><a href="https://github.com/JNOLLY331/" style="color: blue; text-decoration: none;">https://github.com/JNOLLY331/</a></div>
+
+            </section>
+
+            <section>
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="pill-container">
+                    <span class="pill">Python (Django)</span>
+                    <span class="pill">JavaScript (React)</span>
+                    <span class="pill">SQL & NoSQL</span>
+                    <span class="pill">UI/UX Design</span>
+                    <span class="pill">Git/GitHub</span>
+                    <span class="pill">DevoPs & CI/CD</span>
+                    <span class="pill">Networking</span>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Personal Qualities</h2>
+                <div class="pill-container">
+                    <span class="pill">Problem Solving</span>
+                    <span class="pill">Public Speaking</span>
+                    <span class="pill">Team Collaboration</span>
+                    <span class="pill">Adaptability</span>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Languages</h2>
+                <p style="font-size: 0.9rem;"><strong>English:</strong> Fluent<br><strong>Swahili:</strong> Fluent</p>
+            </section>
+        </aside>
+
+        <main>
+            <section>
+                <h2 class="section-title">Education</h2>
+                <div class="entry">
+                    <span class="date">Sep 2023 — Present</span>
+                    <h3>Bsc. Computer Science</h3>
+                    <div class="sub-text">Moi University, Eldoret</div>
+                    <ul>
+                        <li>Focus on SDLC, Data Structures, and Algorithms.</li>
+                        <li>Hands-on experience with Web Technologies (HTML,CSS,Django,React, RestAPIs).</li>
+                        <li>Networking Principles and key concepts</li>
+                        <li>Software development Cycle</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <span class="date">Jan 2019 — Dec 2022</span>
+                    <h3>Kenya Certificate of Secondary Education</h3>
+                    <div class="sub-text">Kisii High School</div>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Overall Grade: <strong>A- (Minus)</strong></p>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Certifications & Courses</h2>
+                <div class="entry">
+                    <span class="date">Aug 2024</span>
+                    <h3>Full Stack React & Django</h3>
+                    <div class="sub-text">Udemy Academy</div>
+                    <ul>
+                        <li>Built RESTful APIs and managed PostgreSQL databases.</li>
+                        <li>Implemented JWT Authentication and Frontend Routing.</li>
+                        <li>Deep understanding of CI/CD</li>
+                        <li>Hosted live projects online</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <span class="date">Current</span>
+                    <h3>CISCO Networking Essentials</h3>
+                    <ul>
+                        <li>Network protocols, IP addressing, and troubleshooting.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Professional References</h2>
+                <div style="font-size: 0.9rem;">
+                    <strong>Dr. Austine Owino</strong><br>
+                    Lecturer, Moi University<br>
+                    Austineowino@gmail.com | 0722323828
+                </div>
+                <br>
+                <div style="font-size: 0.9rem;">
+                    <strong>Dr. Nyamwala</strong><br>
+                    Lecturer, Moi University<br>
+                    nyamwala@gmail.com | 0768709383
+                </div>
+            </section>
+
+            <div class="signature-area">
+
+                
+                <img src="signature.png" alt="Signature" style="width: 100px; opacity: 0.8;">
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        I consent to the processing of my personal data for recruitment purposes.
+    </footer>
+</div>
+
+</body>
+</html>
