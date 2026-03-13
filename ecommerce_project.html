@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React + Django E-Commerce — Complete Project Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --ink2: #3a3832;
+    --ink3: #7a7670;
+    --paper: #faf9f6;
+    --paper2: #f2f0eb;
+    --paper3: #e8e5de;
+    --accent: #c84b2f;
+    --accent2: #e8732a;
+    --blue: #1a4f8a;
+    --blue-light: #e8f0fa;
+    --green: #1a6b3c;
+    --green-light: #e4f4eb;
+    --amber: #8a5a00;
+    --amber-light: #fdf3dc;
+    --purple: #5a2a8a;
+    --purple-light: #f0e8fa;
+    --teal: #0a5a6b;
+    --teal-light: #e0f4f8;
+    --border: #dbd8d0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Outfit', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 60px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -60px;
+    width: 300px; height: 300px;
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid rgba(232,115,42,0.4);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .hero p {
+    font-size: 16px;
+    color: rgba(250,249,246,0.65);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+  }
+  .hero-stat .num {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--paper);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stat .lbl {
+    font-size: 12px;
+    color: rgba(250,249,246,0.5);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  nav a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink3);
+    text-decoration: none;
+    padding: 14px 16px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .section-intro {
+    color: var(--ink3);
+    font-size: 15px;
+    max-width: 600px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  /* TECH STACK GRID */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .tech-card {
+    background: var(--paper);
+    padding: 20px;
+    transition: background 0.15s;
+  }
+  .tech-card:hover { background: var(--paper2); }
+  .tech-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-family: var(--mono);
+  }
+  .tech-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .tech-card p { font-size: 12px; color: var(--ink3); line-height: 1.5; }
+  .tech-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .tag-frontend { background: var(--blue-light); color: var(--blue); }
+  .tag-backend { background: var(--green-light); color: var(--green); }
+  .tag-db { background: var(--amber-light); color: var(--amber); }
+  .tag-tool { background: var(--paper3); color: var(--ink2); }
+  .tag-optional { background: var(--purple-light); color: var(--purple); }
+
+  /* FEATURE TABLE */
+  .feature-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) { .feature-cols { grid-template-columns: 1fr; } }
+  .feature-col {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .feature-col-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .col-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .feature-list {
+    list-style: none;
+    padding: 0;
+  }
+  .feature-list li {
+    padding: 10px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink2);
+  }
+  .feature-list li:last-child { border-bottom: none; }
+  .feature-list li::before {
+    content: '→';
+    color: var(--accent);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* DATABASE SCHEMA */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .schema-table {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+  }
+  .schema-table-header {
+    padding: 10px 16px;
+    font-weight: 600;
+    font-family: var(--mono);
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .schema-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-field { font-family: var(--mono); font-size: 12px; color: var(--ink2); }
+  .schema-type { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
+  .pk-badge {
+    font-size: 9px;
+    font-family: var(--mono);
+    background: var(--amber-light);
+    color: var(--amber);
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-left: 4px;
+  }
+  .fk-badge {
+    font-size: 9px;
+    font-family: var(--mono);
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-left: 4px;
+  }
+
+  /* API ENDPOINTS */
+  .endpoint-group { margin-bottom: 32px; }
+  .endpoint-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 12px;
+    font-family: var(--mono);
+  }
+  .endpoint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--paper);
+    transition: background 0.15s;
+  }
+  .endpoint:hover { background: var(--paper2); }
+  .method {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 3px;
+    min-width: 48px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .get { background: var(--green-light); color: var(--green); }
+  .post { background: var(--blue-light); color: var(--blue); }
+  .put { background: var(--amber-light); color: var(--amber); }
+  .delete { background: #fde8e8; color: #8a1a1a; }
+  .endpoint-path { color: var(--ink2); flex: 1; }
+  .endpoint-desc { font-size: 12px; color: var(--ink3); font-family: var(--sans); }
+
+  /* WORKFLOW STEPS */
+  .workflow {
+    position: relative;
+    padding-left: 32px;
+  }
+  .workflow::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 20px; bottom: 20px;
+    width: 1px;
+    background: var(--border);
+  }
+  .workflow-step {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 20px 24px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+  .workflow-step:hover { border-color: var(--accent); }
+  .workflow-step::before {
+    content: attr(data-step);
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--ink3);
+  }
+  .workflow-step h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .workflow-step p { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+  .workflow-step .step-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .step-tag {
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: var(--paper3);
+    color: var(--ink2);
+  }
+
+  /* PACKAGES */
+  .pkg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) { .pkg-grid { grid-template-columns: 1fr; } }
+  .pkg-section {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .pkg-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pkg-list {
+    list-style: none;
+    padding: 8px 0;
+  }
+  .pkg-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 20px;
+    font-size: 13px;
+  }
+  .pkg-list li:hover { background: var(--paper2); }
+  .pkg-name { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+  .pkg-purpose { font-size: 12px; color: var(--ink3); }
+
+  /* PAYMENT */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .payment-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .payment-card:hover { border-color: var(--accent); background: var(--paper2); }
+  .payment-logo {
+    width: 48px; height: 48px;
+    border-radius: 10px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+  .payment-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .payment-card p { font-size: 12px; color: var(--ink3); }
+  .coverage-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* DEPLOYMENT */
+  .deploy-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  @media (max-width: 700px) { .deploy-row { grid-template-columns: 1fr; } }
+  .deploy-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+  .deploy-card h4 {
+    font-size: 12px;
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 12px;
+  }
+  .deploy-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--ink2);
+  }
+  .deploy-option:last-child { border-bottom: none; }
+  .deploy-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--ink);
+    color: #c9c5bd;
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  .code-block .comment { color: #6b6760; }
+  .code-block .key { color: #e8a87c; }
+  .code-block .val { color: #98c89a; }
+  .code-block .str { color: #7ec8e3; }
+  .code-block .kw { color: #cc99cd; }
+  .code-block .fn { color: #f9c858; }
+  .code-line { display: block; }
+
+  /* TIPS SECTION */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .tip-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .tip-card.blue::before { background: var(--blue); }
+  .tip-card.green::before { background: var(--green); }
+  .tip-card.amber::before { background: var(--amber); }
+  .tip-card.teal::before { background: var(--teal); }
+  .tip-card.accent::before { background: var(--accent); }
+  .tip-card.purple::before { background: var(--purple); }
+  .tip-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .tip-card p { font-size: 13px; color: var(--ink3); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(250,249,246,0.5);
+    padding: 40px 60px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer strong { color: var(--paper); }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    nav, .hero::before, .hero::after { display: none; }
+    section { break-inside: avoid; }
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 48px 24px; }
+    .container { padding: 0 24px; }
+    nav { padding: 0 24px; }
+    footer { padding: 32px 24px; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-badge">Full-Stack Development Guide</span>
+  <h1>React + Django<br><em>E-Commerce</em> Platform</h1>
+  <p>A complete technical blueprint for building a production-ready online store — from database schema and REST APIs to React frontend and payment integration.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="num">10</span><span class="lbl">Core Technologies</span></div>
+    <div class="hero-stat"><span class="num">18</span><span class="lbl">API Endpoints</span></div>
+    <div class="hero-stat"><span class="num">10</span><span class="lbl">Dev Steps</span></div>
+    <div class="hero-stat"><span class="num">3</span><span class="lbl">Payment Options</span></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#stack">Tech Stack</a>
+  <a href="#packages">Packages</a>
+  <a href="#features">Features</a>
+  <a href="#database">Database</a>
+  <a href="#api">API Endpoints</a>
+  <a href="#payments">Payments</a>
+  <a href="#workflow">Workflow</a>
+  <a href="#deployment">Deployment</a>
+  <a href="#tips">Tips</a>
+</nav>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="container">
+    <div class="section-label">01 — Technologies</div>
+    <h2>The Complete Tech Stack</h2>
+    <p class="section-intro">Every technology chosen for a specific reason. React handles dynamic UI, Django serves a robust REST API, and PostgreSQL stores relational data reliably.</p>
+
+    <div class="tech-grid">
+      <!-- Frontend -->
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e8f0fa;color:#1a4f8a;">R</div>
+        <h4>React</h4>
+        <p>Component-based UI library. Build reusable UI pieces that update efficiently when data changes.</p>
+        <span class="tech-tag tag-frontend">Frontend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#fdf3dc;color:#8a5a00;">JS</div>
+        <h4>JavaScript (ES2022+)</h4>
+        <p>async/await, destructuring, modules, optional chaining. The language of the browser.</p>
+        <span class="tech-tag tag-frontend">Frontend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e4f4eb;color:#1a6b3c;">Ax</div>
+        <h4>Axios</h4>
+        <p>HTTP client for API calls. Handles request/response interceptors, auth headers, and JSON parsing.</p>
+        <span class="tech-tag tag-frontend">Frontend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#f0e8fa;color:#5a2a8a;">RR</div>
+        <h4>React Router v6</h4>
+        <p>Client-side routing. Nested routes, protected routes, and URL parameters for product pages.</p>
+        <span class="tech-tag tag-frontend">Frontend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#fde8e8;color:#8a1a1a;">Rx</div>
+        <h4>Redux Toolkit</h4>
+        <p>Global state for cart, auth token, and user session. Optional but recommended for scale.</p>
+        <span class="tech-tag tag-optional">Optional</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e0f4f8;color:#0a5a6b;">TW</div>
+        <h4>Tailwind CSS</h4>
+        <p>Utility-first CSS framework. Rapid UI styling without leaving your HTML. Or use Bootstrap.</p>
+        <span class="tech-tag tag-frontend">Frontend</span>
+      </div>
+      <!-- Backend -->
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e4f4eb;color:#1a6b3c;">Py</div>
+        <h4>Python 3.11+</h4>
+        <p>Backend language. Clean syntax, excellent libraries, and first-class Django support.</p>
+        <span class="tech-tag tag-backend">Backend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e4f4eb;color:#1a6b3c;">Dj</div>
+        <h4>Django 4.2</h4>
+        <p>Batteries-included web framework. ORM, admin panel, auth system, migrations — all built in.</p>
+        <span class="tech-tag tag-backend">Backend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#fdf3dc;color:#8a5a00;">DRF</div>
+        <h4>Django REST Framework</h4>
+        <p>Serialize models into JSON. Viewsets, serializers, permissions, and browsable API explorer.</p>
+        <span class="tech-tag tag-backend">Backend</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e0f4f8;color:#0a5a6b;">JWT</div>
+        <h4>SimpleJWT</h4>
+        <p>Stateless auth using JSON Web Tokens. Access token + refresh token pattern for security.</p>
+        <span class="tech-tag tag-backend">Backend</span>
+      </div>
+      <!-- Database -->
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#e8f0fa;color:#1a4f8a;">PG</div>
+        <h4>PostgreSQL</h4>
+        <p>Production database. ACID-compliant, excellent JSON support, handles concurrent writes safely.</p>
+        <span class="tech-tag tag-db">Database</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#fdf3dc;color:#8a5a00;">SQLi</div>
+        <h4>SQLite</h4>
+        <p>Zero-config local development database. No server needed. Switch to Postgres for production.</p>
+        <span class="tech-tag tag-db">Database (Dev)</span>
+      </div>
+      <!-- Tools -->
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#f2f0eb;color:#3a3832;">Git</div>
+        <h4>Git + GitHub</h4>
+        <p>Version control and remote repository. Branch-per-feature workflow, pull requests for code review.</p>
+        <span class="tech-tag tag-tool">Tool</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#f2f0eb;color:#3a3832;">PM</div>
+        <h4>Postman</h4>
+        <p>Test every API endpoint before connecting the frontend. Inspect headers, tokens, and payloads.</p>
+        <span class="tech-tag tag-tool">Tool</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#f0e8fa;color:#5a2a8a;">Dk</div>
+        <h4>Docker</h4>
+        <p>Containerise Django + Postgres for consistent dev and prod environments. docker-compose.yml.</p>
+        <span class="tech-tag tag-optional">Optional</span>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon" style="background:#fde8e8;color:#8a1a1a;">Rd</div>
+        <h4>Redis</h4>
+        <p>Cache session data, rate-limit API calls, and queue background jobs like order confirmation emails.</p>
+        <span class="tech-tag tag-optional">Optional</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="container">
+    <div class="section-label">02 — Dependencies</div>
+    <h2>Packages &amp; Libraries</h2>
+    <p class="section-intro">Install these in your project. Frontend packages go into <code style="font-family:var(--mono);font-size:13px;background:var(--paper3);padding:2px 6px;border-radius:3px;">package.json</code>, backend packages into <code style="font-family:var(--mono);font-size:13px;background:var(--paper3);padding:2px 6px;border-radius:3px;">requirements.txt</code>.</p>
+
+    <div class="pkg-grid">
+      <div class="pkg-section">
+        <div class="pkg-header" style="background:var(--blue-light);">
+          <span style="color:var(--blue)">⬡</span> React / npm Packages
+        </div>
+        <ul class="pkg-list">
+          <li><span class="pkg-name">axios</span><span class="pkg-purpose">HTTP requests</span></li>
+          <li><span class="pkg-name">react-router-dom</span><span class="pkg-purpose">Client routing</span></li>
+          <li><span class="pkg-name">@reduxjs/toolkit</span><span class="pkg-purpose">State management</span></li>
+          <li><span class="pkg-name">react-redux</span><span class="pkg-purpose">Redux + React bindings</span></li>
+          <li><span class="pkg-name">formik</span><span class="pkg-purpose">Form state &amp; submission</span></li>
+          <li><span class="pkg-name">yup</span><span class="pkg-purpose">Schema validation</span></li>
+          <li><span class="pkg-name">react-icons</span><span class="pkg-purpose">Icon library</span></li>
+          <li><span class="pkg-name">chart.js</span><span class="pkg-purpose">Admin dashboard charts</span></li>
+          <li><span class="pkg-name">tailwindcss</span><span class="pkg-purpose">Utility CSS framework</span></li>
+          <li><span class="pkg-name">@stripe/react-stripe-js</span><span class="pkg-purpose">Stripe checkout UI</span></li>
+        </ul>
+      </div>
+      <div class="pkg-section">
+        <div class="pkg-header" style="background:var(--green-light);">
+          <span style="color:var(--green)">⬡</span> Django / pip Packages
+        </div>
+        <ul class="pkg-list">
+          <li><span class="pkg-name">djangorestframework</span><span class="pkg-purpose">REST API framework</span></li>
+          <li><span class="pkg-name">djangorestframework-simplejwt</span><span class="pkg-purpose">JWT auth</span></li>
+          <li><span class="pkg-name">django-cors-headers</span><span class="pkg-purpose">Allow React requests</span></li>
+          <li><span class="pkg-name">django-filter</span><span class="pkg-purpose">Product search &amp; filter</span></li>
+          <li><span class="pkg-name">pillow</span><span class="pkg-purpose">Image upload processing</span></li>
+          <li><span class="pkg-name">psycopg2-binary</span><span class="pkg-purpose">PostgreSQL adapter</span></li>
+          <li><span class="pkg-name">stripe</span><span class="pkg-purpose">Payment processing</span></li>
+          <li><span class="pkg-name">python-decouple</span><span class="pkg-purpose">.env config management</span></li>
+          <li><span class="pkg-name">whitenoise</span><span class="pkg-purpose">Serve static files</span></li>
+          <li><span class="pkg-name">gunicorn</span><span class="pkg-purpose">Production WSGI server</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3>Quick Install Commands</h3>
+    <div class="code-block">
+      <span class="code-line"><span class="comment"># Frontend — inside your React project folder</span></span>
+      <span class="code-line"><span class="fn">npm</span> <span class="key">install</span> axios react-router-dom @reduxjs/toolkit react-redux formik yup react-icons chart.js tailwindcss</span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment"># Backend — inside your Django project folder (with venv active)</span></span>
+      <span class="code-line"><span class="fn">pip</span> <span class="key">install</span> djangorestframework djangorestframework-simplejwt django-cors-headers django-filter pillow psycopg2-binary stripe python-decouple whitenoise gunicorn</span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment"># Save your backend dependencies</span></span>
+      <span class="code-line"><span class="fn">pip</span> <span class="key">freeze</span> > requirements.txt</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label">03 — Product Scope</div>
+    <h2>Core Features</h2>
+    <p class="section-intro">Two distinct user experiences — the storefront customers shop in, and the admin panel where the store is managed.</p>
+
+    <div class="feature-cols">
+      <div class="feature-col">
+        <div class="feature-col-header" style="background:var(--blue-light);">
+          <span class="col-dot" style="background:var(--blue)"></span>
+          Customer Features
+        </div>
+        <ul class="feature-list">
+          <li>User registration &amp; email login</li>
+          <li>JWT-secured session management</li>
+          <li>Browse products by category</li>
+          <li>Search &amp; filter products</li>
+          <li>Product detail page with images</li>
+          <li>Add to cart / update quantities</li>
+          <li>Checkout with address entry</li>
+          <li>Stripe / M-Pesa payment</li>
+          <li>Order confirmation &amp; tracking</li>
+          <li>User profile &amp; order history</li>
+          <li>Product reviews &amp; ratings</li>
+          <li>Responsive mobile layout</li>
+        </ul>
+      </div>
+      <div class="feature-col">
+        <div class="feature-col-header" style="background:var(--green-light);">
+          <span class="col-dot" style="background:var(--green)"></span>
+          Admin Features
+        </div>
+        <ul class="feature-list">
+          <li>Django admin panel (built-in)</li>
+          <li>Custom admin dashboard (React)</li>
+          <li>Add / edit / delete products</li>
+          <li>Multi-image product uploads</li>
+          <li>Manage product categories</li>
+          <li>View &amp; update all orders</li>
+          <li>Mark orders as delivered</li>
+          <li>User account management</li>
+          <li>Ban / activate users</li>
+          <li>Sales analytics charts</li>
+          <li>Revenue by date range</li>
+          <li>Low stock alerts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATABASE -->
+<section id="database">
+  <div class="container">
+    <div class="section-label">04 — Data Layer</div>
+    <h2>Database Schema</h2>
+    <p class="section-intro">Five core tables with clear relationships. Django's ORM generates migrations from your model classes — you never write SQL by hand.</p>
+
+    <div class="schema-grid">
+      <!-- Users -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--blue-light);color:var(--blue);">
+          👤 users
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">username</span><span class="schema-type">VARCHAR(150)</span></div>
+        <div class="schema-row"><span class="schema-field">email</span><span class="schema-type">VARCHAR(254)</span></div>
+        <div class="schema-row"><span class="schema-field">password</span><span class="schema-type">HASH</span></div>
+        <div class="schema-row"><span class="schema-field">is_admin</span><span class="schema-type">BOOLEAN</span></div>
+        <div class="schema-row"><span class="schema-field">is_active</span><span class="schema-type">BOOLEAN</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">TIMESTAMP</span></div>
+      </div>
+
+      <!-- Products -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--green-light);color:var(--green);">
+          📦 products
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">name</span><span class="schema-type">VARCHAR(200)</span></div>
+        <div class="schema-row"><span class="schema-field">description</span><span class="schema-type">TEXT</span></div>
+        <div class="schema-row"><span class="schema-field">price</span><span class="schema-type">DECIMAL(10,2)</span></div>
+        <div class="schema-row"><span class="schema-field">category_id <span class="fk-badge">FK</span></span><span class="schema-type">INT</span></div>
+        <div class="schema-row"><span class="schema-field">stock</span><span class="schema-type">INTEGER</span></div>
+        <div class="schema-row"><span class="schema-field">image</span><span class="schema-type">VARCHAR(255)</span></div>
+        <div class="schema-row"><span class="schema-field">rating</span><span class="schema-type">DECIMAL(3,2)</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">TIMESTAMP</span></div>
+      </div>
+
+      <!-- Orders -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--amber-light);color:var(--amber);">
+          🧾 orders
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">user_id <span class="fk-badge">FK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">total_price</span><span class="schema-type">DECIMAL(10,2)</span></div>
+        <div class="schema-row"><span class="schema-field">payment_status</span><span class="schema-type">VARCHAR(20)</span></div>
+        <div class="schema-row"><span class="schema-field">is_delivered</span><span class="schema-type">BOOLEAN</span></div>
+        <div class="schema-row"><span class="schema-field">paid_at</span><span class="schema-type">TIMESTAMP</span></div>
+        <div class="schema-row"><span class="schema-field">delivered_at</span><span class="schema-type">TIMESTAMP</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">TIMESTAMP</span></div>
+      </div>
+
+      <!-- OrderItems -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--purple-light);color:var(--purple);">
+          🛒 order_items
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">INTEGER</span></div>
+        <div class="schema-row"><span class="schema-field">order_id <span class="fk-badge">FK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">product_id <span class="fk-badge">FK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">quantity</span><span class="schema-type">INTEGER</span></div>
+        <div class="schema-row"><span class="schema-field">price</span><span class="schema-type">DECIMAL(10,2)</span></div>
+      </div>
+
+      <!-- Reviews -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--teal-light);color:var(--teal);">
+          ⭐ reviews
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">INTEGER</span></div>
+        <div class="schema-row"><span class="schema-field">product_id <span class="fk-badge">FK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">user_id <span class="fk-badge">FK</span></span><span class="schema-type">UUID</span></div>
+        <div class="schema-row"><span class="schema-field">rating</span><span class="schema-type">SMALLINT (1–5)</span></div>
+        <div class="schema-row"><span class="schema-field">comment</span><span class="schema-type">TEXT</span></div>
+        <div class="schema-row"><span class="schema-field">created_at</span><span class="schema-type">TIMESTAMP</span></div>
+      </div>
+
+      <!-- Categories -->
+      <div class="schema-table">
+        <div class="schema-table-header" style="background:var(--paper3);color:var(--ink2);">
+          🏷️ categories
+        </div>
+        <div class="schema-row"><span class="schema-field">id <span class="pk-badge">PK</span></span><span class="schema-type">INTEGER</span></div>
+        <div class="schema-row"><span class="schema-field">name</span><span class="schema-type">VARCHAR(100)</span></div>
+        <div class="schema-row"><span class="schema-field">slug</span><span class="schema-type">VARCHAR(100)</span></div>
+        <div class="schema-row"><span class="schema-field">image</span><span class="schema-type">VARCHAR(255)</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Django Migration Commands</h3>
+    <div class="code-block">
+      <span class="code-line"><span class="comment"># Create migration files from your models.py changes</span></span>
+      <span class="code-line"><span class="fn">python</span> manage.py <span class="key">makemigrations</span></span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment"># Apply migrations to the database</span></span>
+      <span class="code-line"><span class="fn">python</span> manage.py <span class="key">migrate</span></span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment"># Create a superuser for Django admin</span></span>
+      <span class="code-line"><span class="fn">python</span> manage.py <span class="key">createsuperuser</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- API ENDPOINTS -->
+<section id="api">
+  <div class="container">
+    <div class="section-label">05 — REST API</div>
+    <h2>API Endpoints</h2>
+    <p class="section-intro">All endpoints return JSON. Protected routes require an <code style="font-family:var(--mono);font-size:13px;background:var(--paper3);padding:2px 6px;border-radius:3px;">Authorization: Bearer &lt;token&gt;</code> header. Admin routes additionally require <code style="font-family:var(--mono);font-size:13px;background:var(--paper3);padding:2px 6px;border-radius:3px;">is_staff=True</code>.</p>
+
+    <!-- Auth -->
+    <div class="endpoint-group">
+      <div class="endpoint-group-title">Authentication</div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/users/register/</span>
+        <span class="endpoint-desc">Register new user account</span>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/users/login/</span>
+        <span class="endpoint-desc">Returns access + refresh JWT tokens</span>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/token/refresh/</span>
+        <span class="endpoint-desc">Get new access token using refresh token</span>
+      </div>
+    </div>
+
+    <!-- Users -->
+    <div class="endpoint-group">
+      <div class="endpoint-group-title">Users (Protected)</div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/users/profile/</span>
+        <span class="endpoint-desc">Get current user's profile</span>
+      </div>
+      <div class="endpoint">
+        <span class="method put">PUT</span>
+        <span class="endpoint-path">/api/users/profile/</span>
+        <span class="endpoint-desc">Update name, email, password</span>
+      </div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/users/</span>
+        <span class="endpoint-desc">List all users (Admin only)</span>
+      </div>
+    </div>
+
+    <!-- Products -->
+    <div class="endpoint-group">
+      <div class="endpoint-group-title">Products</div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/products/</span>
+        <span class="endpoint-desc">List products (supports ?keyword=&category=&page=)</span>
+      </div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/products/{id}/</span>
+        <span class="endpoint-desc">Get single product detail</span>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/products/</span>
+        <span class="endpoint-desc">Create product (Admin only)</span>
+      </div>
+      <div class="endpoint">
+        <span class="method put">PUT</span>
+        <span class="endpoint-path">/api/products/{id}/</span>
+        <span class="endpoint-desc">Update product (Admin only)</span>
+      </div>
+      <div class="endpoint">
+        <span class="method delete">DELETE</span>
+        <span class="endpoint-path">/api/products/{id}/</span>
+        <span class="endpoint-desc">Delete product (Admin only)</span>
+      </div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/products/{id}/reviews/</span>
+        <span class="endpoint-desc">Submit a product review (Protected)</span>
+      </div>
+    </div>
+
+    <!-- Orders -->
+    <div class="endpoint-group">
+      <div class="endpoint-group-title">Orders (Protected)</div>
+      <div class="endpoint">
+        <span class="method post">POST</span>
+        <span class="endpoint-path">/api/orders/</span>
+        <span class="endpoint-desc">Create a new order from cart</span>
+      </div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/orders/myorders/</span>
+        <span class="endpoint-desc">Get authenticated user's orders</span>
+      </div>
+      <div class="endpoint">
+        <span class="method get">GET</span>
+        <span class="endpoint-path">/api/orders/{id}/</span>
+        <span class="endpoint-desc">Get order detail</span>
+      </div>
+      <div class="endpoint">
+        <span class="method put">PUT</span>
+        <span class="endpoint-path">/api/orders/{id}/pay/</span>
+        <span class="endpoint-desc">Update order to paid (after payment)</span>
+      </div>
+      <div class="endpoint">
+        <span class="method put">PUT</span>
+        <span class="endpoint-path">/api/orders/{id}/deliver/</span>
+        <span class="endpoint-desc">Mark order delivered (Admin only)</span>
+      </div>
+    </div>
+
+    <h3>Example: Protected Axios Request</h3>
+    <div class="code-block">
+      <span class="code-line"><span class="comment">// src/utils/axiosInstance.js</span></span>
+      <span class="code-line"><span class="kw">import</span> axios <span class="kw">from</span> <span class="str">'axios'</span></span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="kw">const</span> api = axios.<span class="fn">create</span>({</span>
+      <span class="code-line">  <span class="key">baseURL</span>: <span class="str">'http://localhost:8000/api'</span>,</span>
+      <span class="code-line">})</span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment">// Attach JWT to every request automatically</span></span>
+      <span class="code-line">api.interceptors.request.<span class="fn">use</span>(config => {</span>
+      <span class="code-line">  <span class="kw">const</span> token = localStorage.<span class="fn">getItem</span>(<span class="str">'accessToken'</span>)</span>
+      <span class="code-line">  <span class="kw">if</span> (token) config.headers.<span class="key">Authorization</span> = <span class="str">`Bearer ${token}`</span></span>
+      <span class="code-line">  <span class="kw">return</span> config</span>
+      <span class="code-line">})</span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="kw">export default</span> api</span>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENTS -->
+<section id="payments">
+  <div class="container">
+    <div class="section-label">06 — Payments</div>
+    <h2>Payment Integration</h2>
+    <p class="section-intro">Choose the payment methods that match your target market. Stripe for international cards, M-Pesa for Kenya and East Africa.</p>
+
+    <div class="payment-grid">
+      <div class="payment-card">
+        <div class="payment-logo" style="background:#635bff;color:white;font-size:18px;">S</div>
+        <h4>Stripe</h4>
+        <p>Cards, Apple Pay, Google Pay. Excellent React SDK.</p>
+        <span class="coverage-badge" style="background:var(--blue-light);color:var(--blue);">Global</span>
+      </div>
+      <div class="payment-card">
+        <div class="payment-logo" style="background:#003087;color:white;">P</div>
+        <h4>PayPal</h4>
+        <p>Widely trusted. Buyer protection. Easy SDK integration.</p>
+        <span class="coverage-badge" style="background:var(--blue-light);color:var(--blue);">Global</span>
+      </div>
+      <div class="payment-card">
+        <div class="payment-logo" style="background:#00a651;color:white;font-size:13px;">M-P</div>
+        <h4>M-Pesa</h4>
+        <p>STK Push via Daraja API. Dominant in Kenya &amp; EAC.</p>
+        <span class="coverage-badge" style="background:var(--green-light);color:var(--green);">Kenya / EAC</span>
+      </div>
+      <div class="payment-card">
+        <div class="payment-logo" style="background:var(--paper3);color:var(--ink);">COD</div>
+        <h4>Cash on Delivery</h4>
+        <p>Simple to implement. No payment gateway needed at launch.</p>
+        <span class="coverage-badge" style="background:var(--paper3);color:var(--ink3);">Local</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Stripe Integration — React Checkout Component</h3>
+    <div class="code-block">
+      <span class="code-line"><span class="comment">// Install: npm install @stripe/react-stripe-js @stripe/stripe-js</span></span>
+      <span class="code-line"><span class="kw">import</span> { loadStripe } <span class="kw">from</span> <span class="str">'@stripe/stripe-js'</span></span>
+      <span class="code-line"><span class="kw">import</span> { Elements, CardElement, useStripe, useElements } <span class="kw">from</span> <span class="str">'@stripe/react-stripe-js'</span></span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="kw">const</span> stripePromise = <span class="fn">loadStripe</span>(<span class="str">'pk_test_YOUR_PUBLISHABLE_KEY'</span>)</span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="kw">function</span> <span class="fn">PaymentForm</span>({ orderId, totalPrice }) {</span>
+      <span class="code-line">  <span class="kw">const</span> stripe = <span class="fn">useStripe</span>()</span>
+      <span class="code-line">  <span class="kw">const</span> elements = <span class="fn">useElements</span>()</span>
+      <span class="code-line"></span>
+      <span class="code-line">  <span class="kw">const</span> <span class="fn">handleSubmit</span> = <span class="kw">async</span> (e) => {</span>
+      <span class="code-line">    e.<span class="fn">preventDefault</span>()</span>
+      <span class="code-line">    <span class="kw">const</span> { paymentMethod } = <span class="kw">await</span> stripe.<span class="fn">createPaymentMethod</span>({</span>
+      <span class="code-line">      type: <span class="str">'card'</span>,</span>
+      <span class="code-line">      card: elements.<span class="fn">getElement</span>(CardElement)</span>
+      <span class="code-line">    })</span>
+      <span class="code-line">    <span class="comment">// Send paymentMethod.id to your Django backend</span></span>
+      <span class="code-line">    <span class="kw">await</span> api.<span class="fn">put</span>(<span class="str">`/orders/${orderId}/pay/`</span>, { paymentMethodId: paymentMethod.id })</span>
+      <span class="code-line">  }</span>
+      <span class="code-line">  <span class="kw">return</span> <span class="str">&lt;form onSubmit={handleSubmit}&gt;&lt;CardElement /&gt;&lt;button&gt;Pay KSh {totalPrice}&lt;/button&gt;&lt;/form&gt;</span></span>
+      <span class="code-line">}</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="container">
+    <div class="section-label">07 — Development Process</div>
+    <h2>10-Step Build Workflow</h2>
+    <p class="section-intro">Follow this order to avoid having to redo work. Database first, then API, then test the API, then build the UI on top of working data.</p>
+
+    <div class="workflow">
+      <div class="workflow-step" data-step="1">
+        <h4>Design the Database Schema</h4>
+        <p>Draw your tables and relationships before writing any code. Identify primary keys, foreign keys, and which fields are nullable. This prevents costly migrations later.</p>
+        <div class="step-tags"><span class="step-tag">PostgreSQL</span><span class="step-tag">ERD diagram</span></div>
+      </div>
+      <div class="workflow-step" data-step="2">
+        <h4>Set Up Django + DRF</h4>
+        <p>Create virtual environment, install packages, configure settings.py (database, CORS, installed apps), write models.py and run migrations.</p>
+        <div class="step-tags"><span class="step-tag">Django</span><span class="step-tag">models.py</span><span class="step-tag">migrations</span></div>
+      </div>
+      <div class="workflow-step" data-step="3">
+        <h4>Build the REST API</h4>
+        <p>Write serializers, viewsets, and URL routes for all resources. Add JWT authentication. Use Django's browsable API to verify endpoints work.</p>
+        <div class="step-tags"><span class="step-tag">DRF</span><span class="step-tag">serializers</span><span class="step-tag">views</span><span class="step-tag">urls</span></div>
+      </div>
+      <div class="workflow-step" data-step="4">
+        <h4>Test APIs with Postman</h4>
+        <p>Create a Postman collection. Test every endpoint — register user, login, list products, create order. Fix bugs before the frontend ever touches the API.</p>
+        <div class="step-tags"><span class="step-tag">Postman</span><span class="step-tag">JWT testing</span></div>
+      </div>
+      <div class="workflow-step" data-step="5">
+        <h4>Scaffold React App</h4>
+        <p>Create React app with Vite or CRA, set up React Router routes, install Tailwind, create folder structure: pages/, components/, redux/, utils/.</p>
+        <div class="step-tags"><span class="step-tag">React</span><span class="step-tag">Vite</span><span class="step-tag">Tailwind</span><span class="step-tag">folder structure</span></div>
+      </div>
+      <div class="workflow-step" data-step="6">
+        <h4>Implement Authentication</h4>
+        <p>Build login/register forms with Formik + Yup. Store JWT in localStorage. Create a Redux auth slice. Add protected route wrappers using React Router.</p>
+        <div class="step-tags"><span class="step-tag">Formik</span><span class="step-tag">Yup</span><span class="step-tag">Redux</span><span class="step-tag">localStorage</span></div>
+      </div>
+      <div class="workflow-step" data-step="7">
+        <h4>Build Product Pages</h4>
+        <p>Product listing with grid/list view, search bar, category filter, and pagination. Product detail page with image gallery, add-to-cart button, and reviews.</p>
+        <div class="step-tags"><span class="step-tag">Axios</span><span class="step-tag">React state</span><span class="step-tag">pagination</span></div>
+      </div>
+      <div class="workflow-step" data-step="8">
+        <h4>Build Cart &amp; Checkout</h4>
+        <p>Cart stored in Redux (or localStorage). Checkout form for shipping address. Order summary page before payment. Post order to /api/orders/ on confirm.</p>
+        <div class="step-tags"><span class="step-tag">Redux cart</span><span class="step-tag">checkout flow</span><span class="step-tag">order API</span></div>
+      </div>
+      <div class="workflow-step" data-step="9">
+        <h4>Integrate Payments</h4>
+        <p>Wrap checkout in Stripe Elements. On payment success, call /api/orders/{id}/pay/ to update order status. Handle M-Pesa STK Push callback from Daraja API.</p>
+        <div class="step-tags"><span class="step-tag">Stripe</span><span class="step-tag">M-Pesa Daraja</span><span class="step-tag">webhooks</span></div>
+      </div>
+      <div class="workflow-step" data-step="10">
+        <h4>Deploy Frontend &amp; Backend</h4>
+        <p>Push React to Vercel. Deploy Django to Render with gunicorn + whitenoise. Provision managed PostgreSQL. Set environment variables. Configure CORS for prod domain.</p>
+        <div class="step-tags"><span class="step-tag">Vercel</span><span class="step-tag">Render</span><span class="step-tag">PostgreSQL</span><span class="step-tag">.env</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT -->
+<section id="deployment">
+  <div class="container">
+    <div class="section-label">08 — Going Live</div>
+    <h2>Deployment Options</h2>
+    <p class="section-intro">The simplest stack for a first deploy: Vercel for React (zero config), Render for Django (free tier available), and a managed Postgres database.</p>
+
+    <div class="deploy-row">
+      <div class="deploy-card">
+        <h4>Frontend</h4>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#00c7b7;"></span>
+          Vercel — free, auto-deploy
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#00ad9f;"></span>
+          Netlify — free, drag-n-drop
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#ff9900;"></span>
+          AWS S3 + CloudFront
+        </div>
+      </div>
+      <div class="deploy-card">
+        <h4>Backend (Django)</h4>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#46e3b7;"></span>
+          Render — free tier available
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#0080ff;"></span>
+          DigitalOcean App Platform
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#ff9900;"></span>
+          AWS Elastic Beanstalk
+        </div>
+      </div>
+      <div class="deploy-card">
+        <h4>Database</h4>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#336791;"></span>
+          Render Postgres (managed)
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#0080ff;"></span>
+          DigitalOcean Managed PG
+        </div>
+        <div class="deploy-option">
+          <span class="deploy-dot" style="background:#ff9900;"></span>
+          AWS RDS PostgreSQL
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Required Environment Variables</h3>
+    <div class="code-block">
+      <span class="code-line"><span class="comment"># Django settings — store in .env file, never commit to Git</span></span>
+      <span class="code-line"><span class="key">SECRET_KEY</span>=<span class="str">your-django-secret-key-here</span></span>
+      <span class="code-line"><span class="key">DEBUG</span>=<span class="val">False</span></span>
+      <span class="code-line"><span class="key">ALLOWED_HOSTS</span>=<span class="str">yourdomain.com,www.yourdomain.com</span></span>
+      <span class="code-line"><span class="key">DATABASE_URL</span>=<span class="str">postgres://user:password@host:5432/dbname</span></span>
+      <span class="code-line"><span class="key">CORS_ALLOWED_ORIGINS</span>=<span class="str">https://your-react-app.vercel.app</span></span>
+      <span class="code-line"><span class="key">STRIPE_SECRET_KEY</span>=<span class="str">sk_live_...</span></span>
+      <span class="code-line"><span class="key">MPESA_CONSUMER_KEY</span>=<span class="str">your-daraja-consumer-key</span></span>
+      <span class="code-line"><span class="key">MPESA_CONSUMER_SECRET</span>=<span class="str">your-daraja-consumer-secret</span></span>
+      <span class="code-line"></span>
+      <span class="code-line"><span class="comment"># React — prefix with REACT_APP_ or VITE_</span></span>
+      <span class="code-line"><span class="key">VITE_API_BASE_URL</span>=<span class="str">https://your-django-api.onrender.com/api</span></span>
+      <span class="code-line"><span class="key">VITE_STRIPE_PUBLISHABLE_KEY</span>=<span class="str">pk_live_...</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section id="tips">
+  <div class="container">
+    <div class="section-label">09 — Best Practices</div>
+    <h2>Tips for Success</h2>
+    <p class="section-intro">Hard-learned lessons from real e-commerce projects. These will save you hours of debugging.</p>
+
+    <div class="tips-grid">
+      <div class="tip-card blue">
+        <h4>Never store passwords in plain text</h4>
+        <p>Django hashes passwords automatically with <code style="font-family:var(--mono);font-size:12px;">set_password()</code>. Never store raw strings in the database. Use <code style="font-family:var(--mono);font-size:12px;">AbstractUser</code> for custom user models.</p>
+      </div>
+      <div class="tip-card green">
+        <h4>Keep JWT tokens short-lived</h4>
+        <p>Set access tokens to 5–15 minutes, refresh tokens to 7–30 days. Use the refresh token to silently get new access tokens — users stay logged in without security risk.</p>
+      </div>
+      <div class="tip-card amber">
+        <h4>Validate stock before checkout</h4>
+        <p>Always re-check <code style="font-family:var(--mono);font-size:12px;">product.stock</code> server-side when an order is placed. Never trust the client. Use <code style="font-family:var(--mono);font-size:12px;">select_for_update()</code> to prevent race conditions.</p>
+      </div>
+      <div class="tip-card teal">
+        <h4>Use pagination everywhere</h4>
+        <p>Add <code style="font-family:var(--mono);font-size:12px;">PageNumberPagination</code> to your DRF settings. Returning all 10,000 products in one request will crash your app in production.</p>
+      </div>
+      <div class="tip-card accent">
+        <h4>Handle CORS correctly</h4>
+        <p>Add <code style="font-family:var(--mono);font-size:12px;">corsheaders</code> to <code style="font-family:var(--mono);font-size:12px;">MIDDLEWARE</code> before Django's common middleware. In development allow all origins, in production whitelist only your React domain.</p>
+      </div>
+      <div class="tip-card purple">
+        <h4>Use Stripe webhooks for payments</h4>
+        <p>Don't only rely on frontend callbacks to mark orders paid. Set up a <code style="font-family:var(--mono);font-size:12px;">/webhook/stripe/</code> endpoint that listens to <code style="font-family:var(--mono);font-size:12px;">payment_intent.succeeded</code> events from Stripe's servers.</p>
+      </div>
+      <div class="tip-card green">
+        <h4>Store images on cloud storage</h4>
+        <p>In production, save uploaded product images to AWS S3 or Cloudinary using <code style="font-family:var(--mono);font-size:12px;">django-storages</code>. Never store user uploads on the server filesystem.</p>
+      </div>
+      <div class="tip-card blue">
+        <h4>Write tests for your API</h4>
+        <p>Use Django's <code style="font-family:var(--mono);font-size:12px;">APITestCase</code> to test each endpoint. At minimum: can a user register, login, browse products, and place an order? Run tests before every deployment.</p>
+      </div>
+      <div class="tip-card amber">
+        <h4>Use .env files everywhere</h4>
+        <p>Never hardcode secrets in your codebase. Use <code style="font-family:var(--mono);font-size:12px;">python-decouple</code> in Django and Vite's <code style="font-family:var(--mono);font-size:12px;">import.meta.env</code> in React. Add <code style="font-family:var(--mono);font-size:12px;">.env</code> to <code style="font-family:var(--mono);font-size:12px;">.gitignore</code> immediately.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>React + Django E-Commerce — Complete Requirements Guide</strong></p>
+  <p style="margin-top:8px;">Built with Django REST Framework · React 18 · PostgreSQL · JWT Authentication · Stripe · M-Pesa</p>
+  <p style="margin-top:8px;">Start with SQLite locally → switch to PostgreSQL for production. Commit early, deploy often.</p>
+</footer>
+
+</body>
+</html>
